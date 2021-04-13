@@ -8,8 +8,8 @@ const getById = (id) => {
   return db("cars").where("id", id).first();
 };
 
-const create = () => {
-  return db("cars");
+const create = (carInfo) => {
+  return db("cars").insert(carInfo);
 };
 
 module.exports = {

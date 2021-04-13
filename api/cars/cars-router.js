@@ -1,23 +1,41 @@
-// takes routes from requests
-// needs express, needs to be taught how to read json, needs knex, exports, and 
+// The router consumes all requests to a specified url ("/api/cars")
+// We need express, all necessary middleware, the cars-model an instance of express, the JSON parser, and an export.
+
 const express = require('express');
-const db = require();
-//import middleware
-const router = express.Router(); // build an instance of express
+const Cars = require('./cars-model')
+const {
+  checkCarId,
+  checkCarPayload,
+  checkVinNumberValid,
+  checkVinNumberUnique
+} = require("./cars-middleware")
+
+const router = express.Router();
+
 router.use(express.json());
 
 router.get("/", (req, res, next) => {
-  next();
+  Cars.getAll()
+    .then(cars => {
+      res.status(200).json(cars)
+    })
+  .catch(next)
 });
 
-router.get("/:id", (req, res, next) => {
-  next();
+router.get("/:id", checkCarId, (req, res, next) => {
+  Cars.getById(req.params.id)
+    .then(car => {
+      res.status(200).json(car)
+  })
 });
-router.post("/", (req, res, next) => {
-  next();
+router.post(
+  "/",
+  checkCarPayload,
+  checkVinNumberValid,
+  checkVinNumberUnique,
+  (req, res, next) => {
+      
+      next();
 });
 
-
-
-
-module.exports = router; // Gives the outside world access to the router we've defined here
+module.exports = router;
