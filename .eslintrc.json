@@ -19,6 +19,6 @@
         "react"
     ],
     "rules": {
-        "semi": 1
+        "semi": 0
     }
 }
