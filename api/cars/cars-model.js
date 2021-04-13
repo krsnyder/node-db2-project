@@ -9,7 +9,7 @@ const getById = (id) => {
 };
 
 const create = () => {
-  return db("cars")
+  return db("cars");
 };
 
 module.exports = {

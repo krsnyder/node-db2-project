@@ -4,7 +4,7 @@ const checkCarId = async (req, res, next) => {
   try {
     const carId = await Cars.getById(req.params.id);
     if (!carId) {
-      next({status: 404, message: "Car not found"})
+      next({ status: 404, message: "Car not found" });
     } else {
       next();
     }
@@ -30,4 +30,4 @@ module.exports = {
   checkCarPayload,
   checkVinNumberValid,
   checkVinNumberUnique
-}
+};
