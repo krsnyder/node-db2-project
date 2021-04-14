@@ -5,7 +5,6 @@ const getAll = () => {
 };
 
 const getById = (id) => {
-  //originally destructured id from arguments but received the error SQLITE_ERROR: no such column: id
   return db("cars").where("id", id).first();
 };
 
