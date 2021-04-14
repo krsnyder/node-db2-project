@@ -14,8 +14,8 @@ const create = (carInfo) => {
 };
 
 const findByVin = (vin) => {
-  return db('cars').where("vin", vin).first()
-}
+  return db('cars').where("vin", vin).first();
+};
 
 module.exports = {
   getAll,
