@@ -5,7 +5,7 @@ const getAll = () => {
 };
 
 const getById = (id) => {
-  return db("cars").where("id", id).first();
+  return db("cars").where("car_id", id).first();
 };
 
 const create = (carInfo) => {

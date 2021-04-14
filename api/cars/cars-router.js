@@ -22,11 +22,9 @@ router.get("/", (req, res, next) => {
   .catch(next)
 });
 
+// eslint-disable-next-line no-unused-vars
 router.get("/:id", checkCarId, (req, res, next) => {
-  Cars.getById(req.params.id)
-    .then(car => {
-      res.status(200).json(car)
-  })
+  res.status(200).json(req.car)
 });
 router.post(
   "/",
