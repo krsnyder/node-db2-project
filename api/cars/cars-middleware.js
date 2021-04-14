@@ -19,23 +19,15 @@ const checkCarId = async (req, res, next) => {
 const checkCarPayload = (req, res, next) => {
   const { vin, make, model, mileage } = req.body;
 
-  // Attempted to iterate through body for validation
-  // const recs = [vin, make, model, mileage];
-  
-  // recs.forEach(rec => {
-  //   if (!rec) {
-  //     next({status: 400, message: `${rec} is missing`})
-  //   } else {
-  //     return
-  //   }
-  // })
-
-  if(!vin || !make || !model || !mileage){
-    next({
-      status: 400,
-      message: "Vin, make, model, and mileage required"
-    })
-  }else{
+  if(!vin){
+    res.status(400).json({message: "vin is missing"})
+  } else if (!make) {
+    res.status(400).json({message: "make is missing"})
+  } else if (!model) {
+    res.status(400).json({message: "model is missing"})
+  } else if (!mileage) {
+    res.status(400).json({message: "mileage is missing"})
+  } else {
     next();
   }
 };
@@ -50,8 +42,19 @@ const checkVinNumberValid = (req, res, next) => {
   }
 };
 
-const checkVinNumberUnique = (req, res, next) => {
-  next();
+const checkVinNumberUnique = async (req, res, next) => {
+  const { vin } = req.body
+  try {
+    const isVin = await Cars.findByVin(vin)
+    if (isVin) {
+      next({status: 400, message: `vin ${vin} is invalid`})
+    } else {
+      next()
+    }
+  } catch (err) {
+    next(err)
+  }
+  
 };
 
 module.exports = {

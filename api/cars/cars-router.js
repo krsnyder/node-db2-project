@@ -32,7 +32,6 @@ router.post("/", checkCarPayload, checkVinNumberValid, checkVinNumberUnique, asy
   try {
     const newId = await Cars.create(req.body)
     const newCar = await Cars.getById(newId)
-    console.log(newCar)
     res.status(201).json(newCar)
   } catch (err) {
     next(err)

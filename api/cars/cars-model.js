@@ -13,8 +13,13 @@ const create = (carInfo) => {
   return db("cars").insert(carInfo);
 };
 
+const findByVin = (vin) => {
+  return db('cars').where("vin", vin).first()
+}
+
 module.exports = {
   getAll,
   getById,
-  create
+  create,
+  findByVin
 };
